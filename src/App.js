@@ -1,4 +1,5 @@
 import React, { Component}  from 'react';
+import { Button, Card, Row, Col } from 'react-materialize';
 
 class ClimateList extends React.Component {
   constructor(props) {     
@@ -40,7 +41,7 @@ class ClimateList extends React.Component {
 
   render() {
     const climate = this.state.climate.sort((a, b) => (
-      b.temperature - a.temperature
+      b.created_at - a.created_at
       ));
       const climateComponents = climate.map((climate) => (
         <Climate
@@ -49,42 +50,49 @@ class ClimateList extends React.Component {
           city={climate.city}
           temperature={climate.temperature}
           status={climate.status}
+          created_at={climate.created_at}
         />
     ));
     return (
       <div className='ui unstackable items'>
-      {climateComponents}
-      city
-      <input name="city" value={this.state.newclimate.city} onChange={this.handleInputChange}/>
-      temperature
-      <input name="temperature" value={this.state.newclimate.temperature} onChange={this.handleInputChange}/>
-      status
-      <input name="status" value={this.state.newclimate.status} onChange={this.handleInputChange}/>
-      <button onClick={this.handleClick}>Submit</button>
-      </div>
+        {climateComponents}
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="city" value={this.state.newclimate.city} onChange={this.handleInputChange} type="text" class="validate"/>
+              <label class="active" for="first_name2">City</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="temperature" value={this.state.newclimate.temperature} onChange={this.handleInputChange} type="text" class="validate"/>
+              <label class="active" for="first_name2">Temperature</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="status" value={this.state.newclimate.status} onChange={this.handleInputChange} type="text" class="validate"/>
+              <label class="active" for="first_name2">Status</label>
+            </div>
+          </div>
+          <a id="add" onClick={this.handleClick} class="waves-effect waves-light btn">Post</a>
+        </div>
       );
   }
 }
 class Climate extends React.Component {
   render() {
     return (
-      <div className='item'>
-        <div className='city'>
-            <h2>
-              {this.props.city}
-            </h2>
+      <div class="col s12">
+        <div class="card teal lighten-2">
+          <div class="card-content white-text">
+            <span class="card-title"> City: {this.props.city}</span>
+            <p>Temperature: {this.props.temperature}°</p>
+            <p class="col s6">Status: {this.props.status}</p>
+            <p class="col s6">Posted at: {this.props.created_at}</p>
           </div>
-          <div className='temperature'>
-            <p>
-              {this.props.temperature}
-            </p>
-          </div>
-          <div className='status'>
-            <p>
-              {this.props.status}
-            </p>
-          </div>
+        </div>
       </div>
+      
       );
   }
 }
